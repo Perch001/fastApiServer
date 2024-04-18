@@ -1,0 +1,5 @@
+FROM postgres:latest
+
+ENV POSTGRES_USER=pgadmin
+ENV POSTGRES_PASSWORD=1234
+ENV POSTGRES_DB=pgdatabase
