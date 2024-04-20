@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, Depends
 from fastapi_users import FastAPIUsers, fastapi_users
 import uvicorn
 from auth.auth import auth_backend
@@ -33,3 +33,9 @@ app.include_router(
     prefix="/auth",
     tags=["auth"],
 )
+
+current_active_user = fastapi_users.current_user(active=True)
+
+@app.get("/protected-route")
+def protected_route(user: User = Depends(current_active_user)):
+    return f"Hello, {user.username}"
